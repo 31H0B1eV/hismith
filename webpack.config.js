@@ -9,23 +9,29 @@ module.exports = {
   module: {
 
     rules: [
-      /*
-       your other rules for JavaScript transpiling go in here
-       */
-      { // regular css files
+      {
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['env']
+          }
+        }
+      },
+      {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
           loader: 'css-loader?importLoaders=1'
         })
       },
-      { // sass / scss loader for webpack
-        test: /\.(sass|scss)$/,
+      {        test: /\.(sass|scss)$/,
         loader: ExtractTextPlugin.extract(['css-loader', 'sass-loader'])
       }
     ]
   },
   plugins: [
-    new ExtractTextPlugin({ // define where to save the file
+    new ExtractTextPlugin({
       filename: './public/assets/css/app.css',
       allChunks: true
     })

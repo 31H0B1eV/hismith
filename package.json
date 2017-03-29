@@ -1,10 +1,14 @@
 {
   "license": "MIT",
   "scripts": {
-    "dev": "node_modules/webpack/bin/webpack.js --progress --hide-modules",
+    "dev": "NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules",
+    "prod": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules",
     "watch": "node_modules/webpack/bin/webpack.js --watch --progress --hide-modules"
   },
   "devDependencies": {
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-env": "^1.2.2",
     "extract-text-webpack-plugin": "^2.1.0"
   },
   "dependencies": {
