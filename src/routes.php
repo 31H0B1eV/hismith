@@ -2,15 +2,23 @@
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
 use App\Controllers\HomeController;
 
+/**
+ * Register controller
+ */
 $app['home.controller'] = function() {
     return new HomeController();
 };
 
+/**
+ * Application routes
+ */
 $app->get('/', 'home.controller:indexAction');
 
+/**
+ * Handle errors
+ */
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {
         return;
