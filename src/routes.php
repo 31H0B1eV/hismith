@@ -3,7 +3,13 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-$app->mount('/', new App\Controllers\HomeControllerProvider());
+use App\Controllers\HomeController;
+
+$app['home.controller'] = function() {
+    return new HomeController();
+};
+
+$app->get('/', 'home.controller:indexAction');
 
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {
