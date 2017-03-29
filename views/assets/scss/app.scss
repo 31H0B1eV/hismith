@@ -1,9 +1,13 @@
 @import "../../../node_modules/bootstrap/scss/bootstrap";
 
-@import url('https://fonts.googleapis.com/css?family=Roboto');
-
 @import "variables";
 
-body {
-  font-family: $font;
+.welcome {
+    display: flex;
+    justify-content: content;
+    height: 100vh;
+}
+
+.welcome > h1 {
+    margin: auto;
 }

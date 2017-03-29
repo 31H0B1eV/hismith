@@ -6,7 +6,9 @@
         <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        {% block content %}{% endblock %}
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
 
         <script type="text/javascript" src="{{ asset('assets/js/app.js') }}"></script>
     </body>
