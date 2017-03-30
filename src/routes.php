@@ -16,6 +16,8 @@ $app['comments.controller'] = function() {
  */
 $app->get('/', 'comments.controller:indexAction');
 $app->get('/comment/{id}', 'comments.controller:commentAction');
+$app->match('/comments/new', 'comments.controller:formAction');
+$app->match('/comments/add', 'comments.controller:addAction');
 
 /**
  * Handle errors
