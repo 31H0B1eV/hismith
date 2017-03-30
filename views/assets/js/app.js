@@ -1,3 +1,5 @@
 require('./bootstrap.js');
 
-console.log('it work\'s!');
+$('.like').on('click', function() {
+  $(this).toggleClass('fa-thumbs-o-up fa-thumbs-up')
+});
