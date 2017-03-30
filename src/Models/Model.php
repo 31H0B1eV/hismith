@@ -58,6 +58,10 @@ class Model
         return $this->connection->query($sql);
     }
 
+    /**
+     * Method for simplify development process
+     * used for create single fake record in database.
+     */
     public function generateFakeRecord()
     {
         $faker = Factory::create();

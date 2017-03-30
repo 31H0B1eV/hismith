@@ -12,7 +12,10 @@
                         <blockquote class="card-blockquote">
                             <p class="text-justify">{{ comment.feedback }}</p>
                             <hr>
-                            <footer>Likes: {{ comment.likes }} <i class="text-right" style="display: block;">{{ comment.published_at }}</i> </footer>
+                            <footer>
+                                <i class="fa fa-thumbs-o-up like" aria-hidden="true"></i> {{ comment.likes }}
+                                <span class="comment--date">{{ comment.published_at|date("d.m.Y") }}</span>
+                            </footer>
                         </blockquote>
                     </div>
                 </div>

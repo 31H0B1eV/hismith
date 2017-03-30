@@ -5,3 +5,18 @@
 body {
   margin-top: 50px;
 }
+
+.like {
+  cursor: pointer;
+  font-size: 1.5em !important;
+}
+
+.comment--date {
+  float: right;
+  font-size: .8em;
+  font-style: oblique;
+}
+
+.fa-thumbs-up {
+  color: tomato !important;
+}
