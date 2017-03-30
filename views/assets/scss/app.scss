@@ -4,7 +4,8 @@
 
 .welcome {
     display: flex;
-    justify-content: content;
+    justify-content: center;
+    flex-direction: row;
     height: 100vh;
 }
 

@@ -8,6 +8,11 @@ class HomeController
 {
     public function indexAction(Application $app)
     {
-        return $app['twig']->render('index.html.twig', array());
+        $sql = "SELECT name, email FROM users";
+        $records= $app['db']->fetchAll($sql);
+
+        return $app['twig']->render('index.html.twig', array(
+            'records' => $records,
+        ));
     }
 }
