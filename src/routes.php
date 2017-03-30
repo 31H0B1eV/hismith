@@ -5,7 +5,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Controllers\HomeController;
 
 /**
- * Register controller
+ * Register controllers
  */
 $app['home.controller'] = function() {
     return new HomeController();
@@ -15,6 +15,7 @@ $app['home.controller'] = function() {
  * Application routes
  */
 $app->get('/', 'home.controller:indexAction');
+$app->get('/comment/{id}', 'home.controller:commentAction');
 
 /**
  * Handle errors

@@ -1,0 +1,27 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <div class="welcome">
+        {% if comment %}
+            {% for c in comment %}
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-right">{{ c.author }}</h3>
+                        <p class="text-right">IP: {{ c.author_ip }}</p>
+                    </div>
+                    <div class="card-block">
+                        <blockquote class="card-blockquote">
+                            <p class="text-justify">{{ c.feedback }}</p>
+                            <hr>
+                            <footer>
+                                <i class="fa fa-thumbs-o-up like" aria-hidden="true"></i> {{ c.likes }}
+                                <span class="comment--date">{{ c.published_at|date("d.m.Y") }}</span>
+                            </footer>
+                        </blockquote>
+                    </div>
+                </div>
+                <br>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}
