@@ -4,11 +4,24 @@ namespace App\Models;
 
 use Silex\Application;
 
+/**
+ * Class Model
+ * base class responsible for create database and share queryBuilder instance.
+ *
+ * @package App\Models
+ */
 class Model
 {
     protected $connection;
     protected $queryBuilder;
 
+    /**
+     * Model constructor.
+     * Get application instance, create basic schema and
+     * create queryBuilder instance for using in CRUD.
+     *
+     * @param Application $app
+     */
     public function __construct(Application $app)
     {
         $this->connection = $app['db'];
@@ -16,6 +29,12 @@ class Model
         $this->queryBuilder = $app['db']->createQueryBuilder();
     }
 
+    /**
+     * Creates necessary tables
+     * Likes and Comments split in two tables for easy check for user ip before save like.
+     *
+     * @return mixed
+     */
     private function createCommentsTableIfNotExists()
     {
         $sql = "CREATE TABLE IF NOT EXISTS `likes` (
