@@ -7,6 +7,7 @@ use App\Models\Comments;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -36,8 +37,8 @@ class CommentsController
     public function formAction(Application $app)
     {
         $data = array(
-            'name' => 'Your name',
-            'email' => 'Your email',
+            'name' => '',
+            'email' => '',
         );
 
         $form = $app['form.factory']->createBuilder(FormType::class, $data)
@@ -47,10 +48,8 @@ class CommentsController
             ->add('email', TextType::class, array(
                 'constraints' => new Assert\Email()
             ))
-            ->add('billing_plan', ChoiceType::class, array(
-                'choices' => array('free' => 1, 'small business' => 2, 'corporate' => 3),
-                'expanded' => true,
-                'constraints' => new Assert\Choice(array(1, 2, 3)),
+            ->add('ip', HiddenType::class, array(
+                'data' => $_SERVER['REMOTE_ADDR'],
             ))
             ->add('submit', SubmitType::class, [
                 'label' => 'Save',
