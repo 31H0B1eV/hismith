@@ -5,7 +5,7 @@ namespace App\Controllers;
 use Silex\Application;
 use App\Models\Comments;
 
-class HomeController
+class CommentsController
 {
 
     public function indexAction(Application $app)

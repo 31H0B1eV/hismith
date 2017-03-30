@@ -2,20 +2,20 @@
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Controllers\HomeController;
+use App\Controllers\CommentsController;
 
 /**
  * Register controllers
  */
-$app['home.controller'] = function() {
-    return new HomeController();
+$app['comments.controller'] = function() {
+    return new CommentsController();
 };
 
 /**
  * Application routes
  */
-$app->get('/', 'home.controller:indexAction');
-$app->get('/comment/{id}', 'home.controller:commentAction');
+$app->get('/', 'comments.controller:indexAction');
+$app->get('/comment/{id}', 'comments.controller:commentAction');
 
 /**
  * Handle errors
