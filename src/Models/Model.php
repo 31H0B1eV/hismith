@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Silex\Application;
+use Faker\Factory;
 
 /**
  * Class Model
@@ -25,7 +26,7 @@ class Model
     public function __construct(Application $app)
     {
         $this->connection = $app['db'];
-        $this->createCommentsTableIfNotExists();
+        $this->createTablesIfNotExists();
         $this->queryBuilder = $app['db']->createQueryBuilder();
     }
 
@@ -35,7 +36,7 @@ class Model
      *
      * @return mixed
      */
-    private function createCommentsTableIfNotExists()
+    private function createTablesIfNotExists()
     {
         $sql = "CREATE TABLE IF NOT EXISTS `likes` (
                     `id` INT NOT NULL AUTO_INCREMENT,
@@ -55,5 +56,40 @@ class Model
                 ) ENGINE=INNODB CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'";
 
         return $this->connection->query($sql);
+    }
+
+    public function generateFakeRecord()
+    {
+        $faker = Factory::create();
+        $qbComments = $this->connection->createQueryBuilder();
+        $qbLikes = $this->connection->createQueryBuilder();
+
+        $qbComments
+            ->insert('comments')
+            ->values(
+                array(
+                    'author_name' => '?',
+                    'author_ip' => '?',
+                    'feedback_text' => '?',
+                    'published_at' => '?',
+                )
+            )
+            ->setParameter(0, $faker->name)
+            ->setParameter(1, ip2long($faker->ipv4))
+            ->setParameter(2, $faker->realText($maxNbChars = 200, $indexSize = 2))
+            ->setParameter(3, $faker->dateTime->format('Y-m-d H:i:s'))
+            ->execute();
+
+        $qbLikes
+            ->insert('likes')
+            ->values(
+                array(
+                    'comment_id' => '?',
+                    'user_ip' => '?',
+                )
+            )
+            ->setParameter(0, rand(1, 10))
+            ->setParameter(1, ip2long($faker->unique()->ipv4))
+            ->execute();
     }
 }
