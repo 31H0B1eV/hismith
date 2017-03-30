@@ -10,10 +10,10 @@ class HomeController
     public function indexAction(Application $app)
     {
         $builder = new Comments($app);
-        $records = $builder->callSelectForNameWithEmail();
+        $comments = $builder->getAllComments();
 
         return $app['twig']->render('index.html.twig', array(
-            'records' => $records,
+            'comments' => $comments,
         ));
     }
 }

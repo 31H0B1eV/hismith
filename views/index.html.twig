@@ -3,11 +3,12 @@
 {% block content %}
     <div class="welcome">
         <h1>Welcome to our new Silex Application!</h1>
-        {% if records %}
+
+        {% if comments %}
         <ul>
-            {% for record in records %}
+            {% for comment in comments %}
                 <li>
-                    <p>{{ record.name }} | {{ record.email }}</p>
+                    <p>{{ dump(comment) }}</p>
                 </li>
             {% endfor %}
         </ul>
