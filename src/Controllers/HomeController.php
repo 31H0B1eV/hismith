@@ -3,17 +3,14 @@
 namespace App\Controllers;
 
 use Silex\Application;
+use App\Models\Comments;
 
 class HomeController
 {
     public function indexAction(Application $app)
     {
-        // $sql = "SELECT name, email FROM users";
-        // $records= $app['db']->fetchAll($sql);
-        $builder= $app['db']->createQueryBuilder();
-        $builder->select('name', 'email')
-            ->from('users');
-        $records = $builder->execute();
+        $builder = new Comments($app);
+        $records = $builder->callSelectForNameWithEmail();
 
         return $app['twig']->render('index.html.twig', array(
             'records' => $records,

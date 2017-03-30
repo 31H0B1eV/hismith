@@ -3,6 +3,7 @@
 {% block content %}
     <div class="welcome">
         <h1>Welcome to our new Silex Application!</h1>
+        {% if records %}
         <ul>
             {% for record in records %}
                 <li>
@@ -10,5 +11,6 @@
                 </li>
             {% endfor %}
         </ul>
+        {% endif %}
     </div>
 {% endblock %}
