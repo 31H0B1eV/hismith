@@ -27,7 +27,7 @@ $app['twig'] = $app->extend('twig', function ($twig, $app) {
     return $twig;
 });
 
-/** Romove it in production */
+/** Remove it in production */
 
 $app['debug'] = true;
 $app->register(new Silex\Provider\WebProfilerServiceProvider(), array(
