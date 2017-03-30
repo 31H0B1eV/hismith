@@ -2,6 +2,22 @@
 
 {% block content %}
     <div class="welcome">
-        <h1>Welcome to our new Silex Application!</h1>
+        {% if comments %}
+            {% for comment in comments %}
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-right">{{ comment.author }}</h3>
+                    </div>
+                    <div class="card-block">
+                        <blockquote class="card-blockquote">
+                            <p class="text-justify">{{ comment.feedback }}</p>
+                            <hr>
+                            <footer>Likes: {{ comment.likes }} <i class="text-right" style="display: block;">{{ comment.published_at }}</i> </footer>
+                        </blockquote>
+                    </div>
+                </div>
+                <br>
+            {% endfor %}
+        {% endif %}
     </div>
 {% endblock %}
