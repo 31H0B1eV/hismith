@@ -28,6 +28,9 @@ class Model
         $this->connection = $app['db'];
         $this->createTablesIfNotExists();
         $this->queryBuilder = $app['db']->createQueryBuilder();
+        for($i=0; $i<10; $i++) {
+            $this->generateFakeRecord();
+        }
     }
 
     /**
@@ -44,7 +47,7 @@ class Model
                     `user_ip` INT UNSIGNED,
                     PRIMARY KEY (`id`)
                 ) ENGINE=INNODB CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-        
+
                 CREATE TABLE IF NOT EXISTS `comments` (
                     `id` INT NOT NULL AUTO_INCREMENT,
                     `author_name` VARCHAR(64) NOT NULL,
