@@ -1,4 +1,4 @@
 # Silex Project Boilerplate
 
 ###TODO
-- add eloquent?
+- add flash messages on create record

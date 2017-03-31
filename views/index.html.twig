@@ -1,28 +1,44 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-    <div class="welcome">
-        {% if comments %}
-            {% for comment in comments %}
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="text-right">{{ comment.author }}</h3>
-                    </div>
-                    <div class="card-block">
-                        <blockquote class="card-blockquote">
-                            <p class="text-justify">{{ comment.feedback }}</p>
-                            <hr>
-                            <footer>
-                                <i class="fa fa-thumbs-o-up like" aria-hidden="true"></i> {{ comment.likes }}
-                                <span class="comment--date">{{ comment.published_at|date("d.m.Y") }}</span>
-                                <hr>
-                                <a class="comment--link" href="/comment/{{ comment.id }}">Go to details >></a>
-                            </footer>
-                        </blockquote>
-                    </div>
+    <div class="row">
+        <div class="col-md-11 text-right">
+            <div class="row">
+                <div class="sort--by--date">
+                    <p>Sort by date:</p>
+                    <button class="btn btn-default" id="sortASC">ASC</button>
+                    <button class="btn btn-default" id="sortDESC">DESC (Default)</button>
                 </div>
-                <br>
-            {% endfor %}
-        {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <button class="btn btn-primary add--comment" id="newComment">New Comment</button>
+        <div class=" welcome">
+            {% if comments %}
+                {% for comment in comments %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="text-right">{{ comment.author }}</h3>
+                        </div>
+                        <div class="card-block">
+                            <blockquote class="card-blockquote">
+                                <p class="text-justify">{{ comment.feedback }}</p>
+                                <hr>
+                                <footer>
+                                    <i class="fa fa-thumbs-o-up like" aria-hidden="true"></i> {{ comment.likes }}
+                                    <span class="comment--date">{{ comment.published_at|date("d.m.Y") }}</span>
+                                    <hr>
+                                    <a class="comment--link" href="/comment/{{ comment.id }}">Go to details >></a>
+                                </footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                    <br>
+                {% endfor %}
+            {% else %}
+                <h1>There is no comments yet.</h1>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}
