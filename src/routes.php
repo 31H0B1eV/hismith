@@ -3,12 +3,17 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Controllers\CommentsController;
+use App\Controllers\LikesController;
 
 /**
  * Register controllers
  */
 $app['comments.controller'] = function() {
     return new CommentsController();
+};
+
+$app['likes.controller'] = function() {
+    return new LikesController();
 };
 
 /**
@@ -18,6 +23,8 @@ $app->get('/', 'comments.controller:indexAction');
 $app->get('/comment/{id}', 'comments.controller:commentAction');
 $app->match('/comments/new', 'comments.controller:formAction');
 $app->match('/comments/add', 'comments.controller:addAction');
+
+$app->post('/likes/{id}/add', 'likes.controller:addAction');
 
 /**
  * Handle errors

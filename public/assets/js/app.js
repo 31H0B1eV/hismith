@@ -76,14 +76,19 @@
 __webpack_require__(2);
 
 $(function () {
+  /**
+   *  Handle pagination logic
+   */
   var total = parseInt($('#pagination').attr('total'));
   var current = parseInt($('#pagination').attr('current'));
 
   if (current === 1) {
+    // disable click on previous if first
     $('#previousComment').closest('li').addClass('disabled');
   }
 
   if (current === total) {
+    // disable click on previous if last
     $('#nextComment').closest('li').addClass('disabled');
   }
 
@@ -98,6 +103,7 @@ $(function () {
 
     window.location.href = '/comment/' + (current + 1);
   });
+  /** == end of pagination logic == */
 });
 
 /**
@@ -105,6 +111,27 @@ $(function () {
  */
 $('.like').on('click', function () {
   $(this).toggleClass('fa-thumbs-o-up fa-thumbs-up');
+
+  var likes = parseInt($(this).attr('likes'));
+
+  if ($(this).hasClass('fa-thumbs-up')) {
+
+    $.ajax({
+      type: "POST",
+      url: '/likes/' + ($(this).closest('footer').attr('current') || $('#pagination').attr('current')) + '/add',
+
+      success: function success(res) {
+        $(this).attr('likes', likes + 1);
+        console.log(res);
+      },
+
+      error: function error(jqXHR, textStatus, errorThrown) {
+        console.error(textStatus, errorThrown);
+      }
+    });
+  } else {
+    $(this).attr('likes', likes - 1);
+  }
 });
 
 /**

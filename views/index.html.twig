@@ -25,8 +25,9 @@
                             <blockquote class="card-blockquote">
                                 <p class="text-justify">{{ comment.feedback }}</p>
                                 <hr>
-                                <footer>
-                                    <i class="fa fa-thumbs-o-up like" aria-hidden="true"></i> {{ comment.likes }}
+                                <footer current="{{ comment.id }}">
+                                    <i class="fa fa-thumbs-o-up like" aria-hidden="true" likes="{{ comment.likes }}"></i>
+                                    {{ comment.likes }}
                                     <span class="comment--date">{{ comment.published_at|date("d.m.Y") }}</span>
                                     <hr>
                                     <a class="comment--link" href="/comment/{{ comment.id }}">Go to details >></a>

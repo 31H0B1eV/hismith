@@ -5,7 +5,7 @@ namespace App\Models;
 use Silex\Application;
 
 /**
- * Class Comments
+ * Comments model
  * For now all methods must be self documented
  *
  * @package App\Models

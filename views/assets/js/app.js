@@ -34,7 +34,29 @@ $(function() {
  * Handle click on likes icon
  */
 $('.like').on('click', function() {
-  $(this).toggleClass('fa-thumbs-o-up fa-thumbs-up')
+  $(this).toggleClass('fa-thumbs-o-up fa-thumbs-up');
+
+  let likes = parseInt($(this).attr('likes'));
+
+  if($(this).hasClass('fa-thumbs-up')) {
+
+    $.ajax({
+      type: "POST",
+      url: `/likes/${$(this).closest('footer').attr('current') || $('#pagination').attr('current')}/add`,
+
+      success: function(res) {
+        $(this).attr('likes', likes + 1);
+        console.log(res);
+      },
+
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.error(textStatus, errorThrown);
+      }
+    });
+
+  } else {
+    $(this).attr('likes', likes - 1);
+  }
 });
 
 
