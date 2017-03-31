@@ -51,8 +51,7 @@ class Model
                     `author_ip` INT UNSIGNED NOT NULL,
                     `feedback_text` TEXT NOT NULL,
                     `published_at` DATETIME NOT NULL,
-                    PRIMARY KEY (`id`),
-                    UNIQUE KEY `author_ip` (`author_ip`)
+                    PRIMARY KEY (`id`)
                 ) ENGINE=INNODB CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'";
 
         return $this->connection->query($sql);

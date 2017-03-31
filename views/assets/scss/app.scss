@@ -25,3 +25,18 @@ body {
 .fa-thumbs-up {
   color: $like-color !important;
 }
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  height: 80vh;
+}
+
+.add--form {
+  margin: auto;
+  width: 60%;
+}
+
+.add--comment {
+  margin-bottom: 1em;
+}

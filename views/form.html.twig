@@ -1,19 +1,30 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-    <form action="/comments/add" method="post">
-        <div class="form-group">
-            {{ form_label(form.name) }}:
-            {{ form_widget(form.name, { 'attr': {'class': 'form-control'}}) }}
-        </div>
-        <div class="form-group">
-            {{ form_label(form.email) }}:
-            {{ form_widget(form.email, { 'attr': {'class': 'form-control'}}) }}
-        </div>
-        <div class="form-group">
-            {{ form_widget(form.ip) }}
-        </div>
 
-        <input type="submit" name="submit" class="btn btn-primary pull-right" />
-    </form>
+    <div class="wrapper">
+        <div class="add--form">
+            <h1>Add new comment:</h1>
+            <br>
+
+            <form action="/comments/add" method="post">
+                <div class="form-group">
+                    {{ form_label(form.author_name) }}:
+                    {{ form_widget(form.author_name, { 'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.feedback_text) }}:
+                    {{ form_widget(form.feedback_text, { 'attr': {'class': 'form-control', 'rows': 10}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.published_at) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.author_ip) }}
+                </div>
+
+                <input type="submit" name="submit" class="btn btn-primary pull-right" />
+            </form>
+        </div>
+    </div>
 {% endblock %}

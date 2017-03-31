@@ -4,11 +4,11 @@ namespace App\Controllers;
 
 use Silex\Application;
 use App\Models\Comments;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class CommentsController
@@ -42,13 +42,16 @@ class CommentsController
         );
 
         $form = $app['form.factory']->createBuilder(FormType::class, $data)
-            ->add('name', TextType::class, array(
-                'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 5)))
+            ->add('author_name', TextType::class, array(
+                'constraints' => new Assert\NotBlank()
             ))
-            ->add('email', TextType::class, array(
-                'constraints' => new Assert\Email()
+            ->add('feedback_text', TextareaType::class, array(
+                'constraints' => new Assert\NotBlank()
             ))
-            ->add('ip', HiddenType::class, array(
+            ->add('published_at', HiddenType::class, array(
+                'data' => date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME'])
+            ))
+            ->add('author_ip', HiddenType::class, array(
                 'data' => $_SERVER['REMOTE_ADDR'],
             ))
             ->add('submit', SubmitType::class, [
@@ -73,7 +76,29 @@ class CommentsController
 
     public function addAction(Application $app)
     {
-        var_dump($_POST);
-        die();
+        $data = array(
+            'author_name' => $_POST['form']['author_name'],
+            'feedback_text' => $_POST['form']['feedback_text'],
+            'published_at' => $_POST['form']['published_at'],
+            'author_ip' => $_POST['form']['author_ip'],
+        );
+
+        $app['db']->createQueryBuilder()
+            ->insert('comments')
+            ->values(array(
+                'author_name' => '?',
+                'author_ip' => '?',
+                'feedback_text' => '?',
+                'published_at' => '?',
+            ))
+            ->setParameter(0, $data['author_name'])
+            ->setParameter(1, ip2long($data['author_ip']))
+            ->setParameter(2, trim(strip_tags($data['feedback_text'])))
+            ->setParameter(3, $data['published_at'])
+            ->execute();
+
+
+//        $app['session']->getFlashBag()->add('message', 'Created!');
+        return $app->redirect('/');
     }
 }

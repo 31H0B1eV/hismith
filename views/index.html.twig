@@ -1,6 +1,9 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
+    <div class="add--comment text-right">
+        <button class="btn btn-primary" id="newComment">New Comment</button>
+    </div>
     <div class="welcome">
         {% if comments %}
             {% for comment in comments %}
@@ -23,6 +26,8 @@
                 </div>
                 <br>
             {% endfor %}
+        {% else %}
+            <h1>There is no comments yet.</h1>
         {% endif %}
     </div>
 {% endblock %}
