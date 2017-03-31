@@ -3,7 +3,11 @@
 @import "variables";
 
 body {
-  margin-top: 50px;
+  margin-top: 20px;
+}
+
+button {
+  cursor: pointer;
 }
 
 .like {
@@ -39,4 +43,19 @@ body {
 
 .add--comment {
   margin-bottom: 1em;
+}
+
+.sort--by--date {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: auto;
+}
+
+.sort--by--date > p {
+  margin-top: 1em;
+}
+
+.sort--by--date > button {
+  margin-left: 1em;
 }
