@@ -6032,3 +6032,6 @@ button {
 
 .sort--by--date > button {
   margin-left: 1em; }
+
+.page-link {
+  cursor: pointer; }

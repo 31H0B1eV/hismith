@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\Likes;
 use Silex\Application;
 use App\Models\Comments;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -14,26 +15,68 @@ use Symfony\Component\Validator\Constraints as Assert;
 class CommentsController
 {
 
+    /**
+     * Index page
+     * Get comments list
+     *
+     * @param Application $app
+     * @return mixed
+     */
     public function indexAction(Application $app)
     {
         $builder = new Comments($app);
         $comments = $builder->getAllComments();
+        $likes = $this->getUserLikes($app);
+        $commentsFiltered = [];
+
+        foreach ($comments as $comment) {
+            if(in_array($comment['id'], $likes)) {
+                $comment['liked'] = true;
+            } else {
+                $comment['liked'] = false;
+            }
+            array_push($commentsFiltered, $comment);
+        }
 
         return $app['twig']->render('index.html.twig', array(
-            'comments' => $comments
+            'comments' => $commentsFiltered
         ));
     }
 
+    /**
+     * Details page
+     * Get single comment by id
+     *
+     * @param Application $app
+     * @param $id
+     * @return mixed
+     */
     public function commentAction(Application $app, $id)
     {
         $builder = new Comments($app);
         $comment = $builder->getComment($id);
+        $likes = $this->getUserLikes($app);
+
+        if(in_array($comment[0]['id'], $likes)) {
+            $comment[0]['liked'] = true;
+        } else {
+            $comment[0]['liked'] = false;
+        }
+
+        $total = sizeof($builder->getAllComments()); // get total comments count for next&prev navigation
 
         return $app['twig']->render('comment.html.twig', array(
             'comment' => $comment,
+            'total' => $total
         ));
     }
 
+    /**
+     * Form page
+     *
+     * @param Application $app
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function formAction(Application $app)
     {
         $data = array(
@@ -74,6 +117,15 @@ class CommentsController
         return $app['twig']->render('form.html.twig', array('form' => $form->createView()));
     }
 
+    /**
+     * Handler for POST form.
+     * Save record into database,
+     * Doctrine DBAL’s SQL Query Builder work in safe with data as described in docs
+     * (http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/query-builder.html)
+     *
+     * @param Application $app
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function addAction(Application $app)
     {
         $data = array(
@@ -100,5 +152,18 @@ class CommentsController
 
 //        $app['session']->getFlashBag()->add('message', 'Created!');
         return $app->redirect('/');
+    }
+
+    public function getUserLikes(Application $app)
+    {
+        $likesBuilder = new Likes($app);
+        $userLikes = $likesBuilder->getUserLikes(ip2long($_SERVER['REMOTE_ADDR'])); // here we already have mess, need switch to user model
+        $likes = [];
+
+        foreach ($userLikes as $like) {
+            array_push($likes, $like['comment_id']);
+        }
+
+        return $likes;
     }
 }
