@@ -44,10 +44,10 @@ $app->register(new FormServiceProvider());
 /** Remove it in production */
 
 $app['debug'] = true;
-// $app->register(new Silex\Provider\WebProfilerServiceProvider(), array(
-//     'profiler.cache_dir' => __DIR__.'/../cache/profiler',
-// ));
-// $app->register(new Sorien\Provider\DoctrineProfilerServiceProvider());
+$app->register(new Silex\Provider\WebProfilerServiceProvider(), array(
+    'profiler.cache_dir' => __DIR__.'/../cache/profiler',
+));
+$app->register(new Sorien\Provider\DoctrineProfilerServiceProvider());
 
 /** =========  */
 
