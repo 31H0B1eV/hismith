@@ -1,7 +1,6 @@
 /.idea
 /vendor
 .phpintel/
-composer.lock
 /node_modules
 /cache/profiler
 !/src/Controllers/LikesController.php
