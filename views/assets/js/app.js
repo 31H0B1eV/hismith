@@ -1,14 +1,17 @@
 require('./bootstrap.js');
 
 $(function() {
+  /**
+   *  Handle pagination logic
+   */
   let total = parseInt($('#pagination').attr('total'));
   let current = parseInt($('#pagination').attr('current'));
 
-  if(current === 1) {
+  if(current === 1) { // disable click on previous if first
     $('#previousComment').closest('li').addClass('disabled');
   }
 
-  if (current === total) {
+  if (current === total) { // disable click on previous if last
     $('#nextComment').closest('li').addClass('disabled');
   }
 
@@ -23,7 +26,9 @@ $(function() {
 
     window.location.href = `/comment/${current + 1}`
   });
+  /** == end of pagination logic == */
 });
+
 
 /**
  * Handle click on likes icon
