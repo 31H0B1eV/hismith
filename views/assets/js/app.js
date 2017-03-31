@@ -74,8 +74,9 @@ $('#newComment').on('click', function (event) {
   window.location.href = '/comments/new'
 });
 
+
 /**
- * Accident sorting of comments
+ * Ascending  sorting of comments by date
  */
 $('#sortASC').on('click', function (event) {
   event.preventDefault();
@@ -84,7 +85,25 @@ $('#sortASC').on('click', function (event) {
 
 
 /**
- * Descending sorting of comments (default)
+ * Ascending  sorting of comments by likes
+ */
+$('#sortLikesASC').on('click', function (event) {
+  event.preventDefault();
+  window.location.href = '/?order=likes&sort=ASC'
+});
+
+
+/**
+ * Descending sorting of comments by likes
+ */
+$('#sortLikesDESC').on('click', function (event) {
+  event.preventDefault();
+  window.location.href = '/?order=likes'
+});
+
+
+/**
+ * Descending sorting of comments by date (default)
  */
 $('#sortDESC').on('click', function (event) {
   event.preventDefault();
