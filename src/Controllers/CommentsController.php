@@ -14,6 +14,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 class CommentsController
 {
 
+    /**
+     * Index page
+     * Get comments list
+     *
+     * @param Application $app
+     * @return mixed
+     */
     public function indexAction(Application $app)
     {
         $builder = new Comments($app);
@@ -24,16 +31,32 @@ class CommentsController
         ));
     }
 
+    /**
+     * Details page
+     * Get single comment by id
+     *
+     * @param Application $app
+     * @param $id
+     * @return mixed
+     */
     public function commentAction(Application $app, $id)
     {
         $builder = new Comments($app);
         $comment = $builder->getComment($id);
+        $total = sizeof($builder->getAllComments()); // get total comments count for next&prev navigation
 
         return $app['twig']->render('comment.html.twig', array(
             'comment' => $comment,
+            'total' => $total
         ));
     }
 
+    /**
+     * Form page
+     *
+     * @param Application $app
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function formAction(Application $app)
     {
         $data = array(
@@ -74,6 +97,15 @@ class CommentsController
         return $app['twig']->render('form.html.twig', array('form' => $form->createView()));
     }
 
+    /**
+     * Handler for POST form.
+     * Save record into database,
+     * Doctrine DBAL’s SQL Query Builder work in safe with data as described in docs
+     * (http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/query-builder.html)
+     *
+     * @param Application $app
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function addAction(Application $app)
     {
         $data = array(

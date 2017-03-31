@@ -28,7 +28,6 @@ class Model
         $this->connection = $app['db'];
         $this->createTablesIfNotExists();
         $this->queryBuilder = $app['db']->createQueryBuilder();
-//        $this->generateFakeRecord();
     }
 
     /**
@@ -59,8 +58,11 @@ class Model
     }
 
     /**
-     * Method for simplify development process
+     * As there is no default or easy way for database migrations this
+     * method is simplify development process
      * used for create single fake record in database.
+     *
+     * Call it by $this->generateFakeRecord(); as needed.
      */
     public function generateFakeRecord()
     {
