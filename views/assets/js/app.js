@@ -34,9 +34,8 @@ $(function() {
  * Handle click on likes icon
  */
 $('.like').on('click', function() {
-  $(this).toggleClass('fa-thumbs-o-up fa-thumbs-up');
 
-  if($(this).hasClass('fa-thumbs-up')) {
+  if($(this).hasClass('fa-thumbs-o-up')) {
 
     $.ajax({
       type: "POST",
@@ -45,7 +44,10 @@ $('.like').on('click', function() {
       success: function(res) {
         if(res !== 'exists') {
           $(this).attr('likes', res);
+          $(this).toggleClass('fa-thumbs-o-up fa-thumbs-up');
           location.reload();
+        } else {
+          // console.log(res);
         }
       },
 
@@ -55,7 +57,11 @@ $('.like').on('click', function() {
     });
 
   } else {
-    $(this).attr('likes', likes - 1);
+    // for now we don't need handle vote down.
+    // $(this).attr('likes', likes - 1);
+    if($(this).hasClass('fa-thumbs-up')) {
+      alert('already voted!');
+    }
   }
 });
 
