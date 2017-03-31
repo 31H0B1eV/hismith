@@ -28,9 +28,6 @@ class Model
         $this->connection = $app['db'];
         $this->createTablesIfNotExists();
         $this->queryBuilder = $app['db']->createQueryBuilder();
-        for($i=0; $i>=10; $i++) {
-            $this->generateFakeRecord();
-        }
     }
 
     /**
