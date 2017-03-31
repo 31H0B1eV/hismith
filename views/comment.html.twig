@@ -14,7 +14,12 @@
                             <p class="text-justify">{{ c.feedback }}</p>
                             <hr>
                             <footer>
-                                <i class="fa fa-thumbs-o-up like" aria-hidden="true" likes="{{ c.likes }}"></i> {{ c.likes }}
+                                {% if c.liked %}
+                                    <i class="fa fa-thumbs-up like" aria-hidden="true" likes="{{ c.likes }}"></i> {{ c.likes }}
+                                {% else %}
+                                    <i class="fa fa-thumbs-o-up like" aria-hidden="true" likes="{{ c.likes }}"></i> {{ c.likes }}
+                                {% endif %}
+
                                 <span class="comment--date">{{ c.published_at|date("d.m.Y") }}</span>
                                 <hr>
                                 <a class="comment--link" href="/"><< Back to list</a>

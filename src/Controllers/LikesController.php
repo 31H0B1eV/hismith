@@ -27,7 +27,20 @@ class LikesController
         if(sizeof($exists) != 0) {
             return 'exists';
         } else {
-            return 'not exists';
+            $app['db']->createQueryBuilder()
+                ->insert('likes')
+                ->values(array(
+                    'comment_id' => '?',
+                    'user_ip' => '?',
+                ))
+                ->setParameter(0, $id)
+                ->setParameter(1, $user_ip)
+                ->execute();
+
+            $comment = new Comments($app);
+            $likes = $comment->getComment($id);
+
+            return $likes[0]['likes'];
         }
     }
 }

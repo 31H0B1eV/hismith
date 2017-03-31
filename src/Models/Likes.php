@@ -18,6 +18,14 @@ class Likes extends Model
         parent::__construct($app);
     }
 
+    public function getUserLikes($userIp)
+    {
+        $sql = "SELECT comment_id FROM likes
+                WHERE user_ip = {$userIp}";
+
+        return $this->connection->query($sql)->fetchAll();
+    }
+
     public function checkIfAlreadyLiked($userIp, $commentId)
     {
         $sql = "SELECT id FROM likes

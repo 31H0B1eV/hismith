@@ -26,7 +26,11 @@
                                 <p class="text-justify">{{ comment.feedback }}</p>
                                 <hr>
                                 <footer current="{{ comment.id }}">
-                                    <i class="fa fa-thumbs-o-up like" aria-hidden="true" likes="{{ comment.likes }}"></i>
+                                    {% if comment.liked %}
+                                        <i class="fa fa-thumbs-up like" aria-hidden="true" likes="{{ comment.likes }}"></i>
+                                    {% else %}
+                                        <i class="fa fa-thumbs-o-up like" aria-hidden="true" likes="{{ comment.likes }}"></i>
+                                    {% endif %}
                                     {{ comment.likes }}
                                     <span class="comment--date">{{ comment.published_at|date("d.m.Y") }}</span>
                                     <hr>

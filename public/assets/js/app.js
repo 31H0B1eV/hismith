@@ -112,8 +112,6 @@ $(function () {
 $('.like').on('click', function () {
   $(this).toggleClass('fa-thumbs-o-up fa-thumbs-up');
 
-  var likes = parseInt($(this).attr('likes'));
-
   if ($(this).hasClass('fa-thumbs-up')) {
 
     $.ajax({
@@ -121,8 +119,10 @@ $('.like').on('click', function () {
       url: '/likes/' + ($(this).closest('footer').attr('current') || $('#pagination').attr('current')) + '/add',
 
       success: function success(res) {
-        $(this).attr('likes', likes + 1);
-        console.log(res);
+        if (res !== 'exists') {
+          $(this).attr('likes', res);
+          location.reload();
+        }
       },
 
       error: function error(jqXHR, textStatus, errorThrown) {
