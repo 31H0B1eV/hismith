@@ -37,6 +37,7 @@ $('.like').on('click', function() {
 
   if($(this).hasClass('fa-thumbs-o-up')) {
 
+    $(this).toggleClass('fa-thumbs-o-up fa-thumbs-up');
     $.ajax({
       type: "POST",
       url: `/likes/${$(this).closest('footer').attr('current') || $('#pagination').attr('current')}/add`,
@@ -44,7 +45,6 @@ $('.like').on('click', function() {
       success: function(res) {
         if(res !== 'exists') {
           $(this).attr('likes', res);
-          $(this).toggleClass('fa-thumbs-o-up fa-thumbs-up');
           location.reload();
         } else {
           // console.log(res);
