@@ -1,5 +1,30 @@
 require('./bootstrap.js');
 
+$(function() {
+  let total = parseInt($('#pagination').attr('total'));
+  let current = parseInt($('#pagination').attr('current'));
+
+  if(current === 1) {
+    $('#previousComment').closest('li').addClass('disabled');
+  }
+
+  if (current === total) {
+    $('#nextComment').closest('li').addClass('disabled');
+  }
+
+  $('#previousComment').on('click', function (event) {
+    event.preventDefault();
+
+    window.location.href = `/comment/${current - 1}`
+  });
+
+  $('#nextComment').on('click', function (event) {
+    event.preventDefault();
+
+    window.location.href = `/comment/${current + 1}`
+  });
+});
+
 /**
  * Handle click on likes icon
  */
